@@ -14,7 +14,6 @@ function fetchSecretaryPost() {
         }
     }
 
-    console.log(toJson);
     fetch("http://localhost:8030/api/user/secretary", {
         method: 'POST',
         headers: {
@@ -37,8 +36,9 @@ function fetchLogin() {
     }
 
     console.log(toJson);
+    
     (async () => {
-        const response = await fetch("http://localhost:8030/login", {
+        const response = await fetch("https://test-matricula.herokuapp.com/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,9 +47,10 @@ function fetchLogin() {
         });
 
         const token = await response.text();
+        console.log(token);
         localStorage.setItem('token', "Bearer " + token);
 
-        const responseMe = await fetch("http://localhost:8030/api/user/me", {
+        const responseMe = await fetch("https://test-matricula.herokuapp.com/api/user/me", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,6 +60,20 @@ function fetchLogin() {
 
         const jsonUser = await responseMe.json()
         console.log(jsonUser);
+        localStorage.setItem('cargo', jsonUser.userType);
+
+        const user = localStorage.getItem('cargo');
+
+        if(user === 'SECRETARY') {
+            console.log('SOU SECRETARIA');
+            // vai pra tela de secretaria
+        } 
+        else if(user === 'STUDENT') {
+            // vai pra tela de estudante
+        }
+        else {
+            // vai pra tela de professor
+        }
     })();
 }
 

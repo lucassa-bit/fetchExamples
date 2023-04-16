@@ -1,10 +1,11 @@
 'use strict'
 const selectForm = document.querySelector("#course");
+const url = 'https://test-matricula.herokuapp.com';
 
 async function getAllCourse() {
     await fetchLogin();
 
-    const coursesRequest = await fetch("https://test-matricula.herokuapp.com/api/course", {
+    const coursesRequest = await fetch(url + "/api/course", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -22,9 +23,8 @@ async function getAllCourse() {
 
 
 async function fetchLogin() {
-    const keys = ["login", "password"];
     const toJson = { login: "Admin", password: "Admin" };
-    const response = await fetch("https://test-matricula.herokuapp.com/login", {
+    const response = await fetch(url + "/login", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ async function fetchLogin() {
     const token = await response.text();
     localStorage.setItem('token', "Bearer " + token);
 
-    const responseMe = await fetch("https://test-matricula.herokuapp.com/api/user/me", {
+    const responseMe = await fetch(url + "/api/user/me", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ async function fetchLogin() {
 
 
 async function fetchStudentPost(course) {
-    const value = await fetch(`https://test-matricula.herokuapp.com/api/user/student?course=${course}`, {
+    const value = await fetch(url + `/api/user/student?course=${course}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
