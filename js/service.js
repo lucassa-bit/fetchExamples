@@ -1,3 +1,5 @@
+const url = 'http//localhost:8030'
+
 function fetchSecretaryPost() {
     const keys = ["name", "email", "id_number", "login", "password", "birthDate"];
     const toJson = {};
@@ -14,7 +16,7 @@ function fetchSecretaryPost() {
         }
     }
 
-    fetch("http://localhost:8030/api/user/secretary", {
+    fetch(url + "/api/user/secretary", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ function fetchLogin() {
     console.log(toJson);
     
     (async () => {
-        const response = await fetch("https://test-matricula.herokuapp.com/login", {
+        const response = await fetch(url + "/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +52,7 @@ function fetchLogin() {
         console.log(token);
         localStorage.setItem('token', "Bearer " + token);
 
-        const responseMe = await fetch("https://test-matricula.herokuapp.com/api/user/me", {
+        const responseMe = await fetch(url + "/api/user/me", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +97,7 @@ function fetchStudentPost() {
     toJson[keys[6]] = document.querySelector(".select_courses").value;
 
     console.log(toJson);
-    fetch("http://localhost:8030/api/user/teacher", {
+    fetch(url + "/api/user/teacher", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -112,7 +114,7 @@ document.querySelector(".form-btn2").addEventListener("click", fetchLogin);
 document.querySelector(".form-btn3").addEventListener("click", fetchStudentPost);
 
 (async () => {
-    const response = await fetch("http://localhost:8030/api/course", {
+    const response = await fetch(url + "/api/course", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
